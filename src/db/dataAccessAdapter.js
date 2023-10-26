@@ -12,9 +12,13 @@ class DataBase {
   }
 
   static InitDB(app) {
-    const url = argv.u || process.env.URL || 'mongodb://localhost:27017';
+    const user = argv.u || process.env.MONGODB_USER || 'developer';
+    const password = process.env.MONGODB_PASSWORD || 'xxx';
+    const connectionString = argv.c || process.env.MONGODB_CONNECTION_STRING || 'localhost:27017/admin';
+    const url = 'mongodb://' + user + ':' + password + '@' + connectionString;
+    const safeUrlForOutput = 'mongodb://' + user + ':' + '*****' + '@' + connectionString;
 
-    console.log(`> Connecting to mongoDB @ ${url}`);
+    console.log(`> Connecting to mongoDB @ ${safeUrlForOutput}`);
     mongoClient.connect(url, { useUnifiedTopology: true })
       .then(client => {
         if (!client) {

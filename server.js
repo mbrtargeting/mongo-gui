@@ -42,6 +42,7 @@ app.use('/databases', databasesRoute);
 
 // serve home page
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
+app.get('/up', (req, res) => res.sendStatus(204));
 
 // connect to database
 dataAccessAdapter.InitDB(app);
